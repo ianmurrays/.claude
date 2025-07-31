@@ -11,8 +11,20 @@ You are tasked with committing changes in the working directory with meaningful 
 ## Process
 
 1. Use `git status` and `git diff` to review changes
-2. Stage files with `git add`
+2. Stage files with `git add` or stage partial changes with `git add -p`
 3. Commit with clear messages using `git commit -m "message"`
+
+## Selective Staging
+
+**Prefer `git add -p` (patch mode) when**:
+- File contains multiple unrelated changes
+- Only part of a file should be in this commit
+- Separating logical changes improves git history
+- Creating atomic commits for better rollback capability
+
+**Use `git add <file>` when**:
+- Entire file represents a single logical change
+- All changes in file belong together
 
 ## Commit Message Guidelines
 
