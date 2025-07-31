@@ -1,0 +1,31 @@
+# Ignore everything by default
+*
+
+# Track specific files and directories
+!agents/
+!commands/
+!CLAUDE.md
+!settings.json
+!.gitignore
+
+# Track all files in agents and commands directories
+!agents/**
+!commands/**
+
+# macOS
+.DS_Store
+
+# Security: Never commit secrets
+.env*
+*.key
+*.pem
+*.p12
+*.pfx
+**/secrets/
+**/credentials/
+**/*secret*
+**/*password*
+**/*token*
+**/*api*key*
+settings-local.json
+config-local.json

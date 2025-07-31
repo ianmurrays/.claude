@@ -1,0 +1,17 @@
+{
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Bash(rg:*)",
+      "Bash(grep:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh pr checks:*)",
+      "mcp__sequential-thinking__sequentialthinking",
+      "mcp__knowledge-graph-memory__search_nodes",
+      "mcp__knowledge-graph-memory__create_entities",
+      "mcp__knowledge-graph-memory__create_relations",
+      "mcp__knowledge-graph-memory__add_observations"
+    ]
+  }
+}
