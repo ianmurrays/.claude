@@ -14,5 +14,8 @@
       "mcp__knowledge-graph-memory__create_relations",
       "mcp__knowledge-graph-memory__add_observations"
     ]
+  },
+  "feedbackSurveyState": {
+    "lastShownTime": 1753977852095
   }
 }
