@@ -42,7 +42,28 @@ When processing arguments:
 3. Check for `--base <branch>` - use specified branch instead of auto-detection
 4. Check for `--title <title>` - use provided title instead of generating from commits
 
+### Extra Instructions for PR Generation
+
+Any additional text in `$ARGUMENTS` (after flags are parsed) should be treated as instructions for HOW to generate the PR description. These instructions guide the content creation process.
+
+Examples of instructions you might receive:
+- "Include a mermaid diagram showing the request flow"
+- "Add a table comparing before/after performance metrics"
+- "Include code examples of how to use the new API"
+- "Add a sequence diagram of the authentication process"
+- "Include migration steps for existing users"
+- "Add screenshots of the UI changes"
+
+When extra instructions are provided:
+1. Parse and remove all flags first
+2. Treat remaining text as generation instructions
+3. Follow these instructions when creating the PR description
+4. Still include standard sections (What/Why/How/Testing) but enhance with requested content
+
 ### Example Usage
 - `/pr --draft` - Creates draft PR
 - `/pr --base develop --draft` - Creates draft PR against develop branch
 - `/pr --title "Fix critical bug" --no-assign` - Custom title without self-assignment
+- `/pr include a mermaid diagram of the data flow` - PR with data flow diagram
+- `/pr --draft add performance comparison table and migration guide` - Draft PR with specific content
+- `/pr show API usage examples with curl commands` - PR with API examples

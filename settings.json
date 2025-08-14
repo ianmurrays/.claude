@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
@@ -12,10 +13,17 @@
       "mcp__knowledge-graph-memory__search_nodes",
       "mcp__knowledge-graph-memory__create_entities",
       "mcp__knowledge-graph-memory__create_relations",
-      "mcp__knowledge-graph-memory__add_observations"
+      "mcp__knowledge-graph-memory__add_observations",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__get-library-docs"
     ]
   },
   "feedbackSurveyState": {
-    "lastShownTime": 1754032105722
+    "lastShownTime": 1754085517739
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bunx ccusage statusline",
+    "padding": 0
   }
 }

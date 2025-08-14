@@ -59,6 +59,42 @@ refactor(utils): extract date formatting utility
 Reduces duplication and centralizes formatting logic
 ```
 
+## Supported Arguments
+
+Parse additional instructions from `$ARGUMENTS` to guide commit behavior:
+
+### Flag Implementation
+
+When processing arguments:
+- `--all` or `-a`: Stage all modified files with `git add .`
+- `--patch` or `-p`: Force use of patch mode with `git add -p`
+- `--no-patch`: Skip patch mode, stage entire files
+- `--type <type>`: Override commit type (feat, fix, refactor, etc.)
+- `--scope <scope>`: Specify commit scope
+
+### Extra Instructions for Commit Generation
+
+Any additional text in `$ARGUMENTS` (after flags are parsed) should be treated as instructions for HOW to generate the commit message or which files to focus on.
+
+Examples of instructions you might receive:
+- "focus on authentication changes only"
+- "separate database and API changes into different commits"
+- "include performance impact in commit message"
+- "mention breaking changes in commit body"
+- "commit only the controller changes"
+
+When extra instructions are provided:
+1. Parse and remove all flags first
+2. Treat remaining text as commit generation instructions
+3. Follow these instructions when staging files and creating commit messages
+4. Still follow conventional commit format but enhance with requested details
+
+### Example Usage
+- `/git:commit --all` - Stage all files and commit
+- `/git:commit --patch` - Force patch mode for selective staging
+- `/git:commit --type fix focus on error handling` - Fix-type commit focusing on error handling
+- `/git:commit separate frontend and backend changes` - Create separate commits for different areas
+
 ## Instructions
 
-Use `execute_command` to run git commands directly. Review changes, stage appropriate files, and create meaningful commits that help future developers understand the codebase evolution.
+Use `execute_command` to run git commands directly. Parse `$ARGUMENTS` for flags and instructions. Review changes, stage appropriate files based on arguments, and create meaningful commits that help future developers understand the codebase evolution.
