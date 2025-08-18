@@ -1,4 +1,5 @@
 ---
+allowed-tools: Bash(git add:*), Bash(git commit:*), Bash(git status:*), Bash(git log:*), Bash(git diff:*)
 description: Commit changes in the working directory with meaningful messages that explain both what was changed and why.
 ---
 
