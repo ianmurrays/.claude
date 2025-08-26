@@ -18,12 +18,13 @@
       "mcp__context7__get-library-docs"
     ]
   },
-  "feedbackSurveyState": {
-    "lastShownTime": 1754085517739
-  },
   "statusLine": {
     "type": "command",
     "command": "bunx ccusage statusline",
     "padding": 0
-  }
+  },
+  "feedbackSurveyState": {
+    "lastShownTime": 1754085517739
+  },
+  "model": "opusplan"
 }
