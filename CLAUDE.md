@@ -30,6 +30,8 @@
 # Tool Usage
 - Use quickpay MCP only for reading files/directories outside current working directory
 - Use internal tools for writing files in current directory
+- IMPORTANT: Use context7 MCP to access up to date documentation
+- IMPORTANT: Use serena **only** as a read-only tool. Any writes should be done with your own integrated tools
 
 # Knowledge Graph Memory
 - Store significant project information using the knowledge-graph-memory MCP server
