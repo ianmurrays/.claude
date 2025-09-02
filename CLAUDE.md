@@ -26,6 +26,8 @@
 - Avoid conversational filler ("I see!", "That's right!")
 - Ask before making significant architectural changes
 - Minimal explanations unless requested
+- Avoid subjective descriptors (robust, smart, elegant, powerful, efficient, clever, sophisticated, etc.) - use factual descriptions instead
+- Never provide performance estimations or comparisons unless explicitly requested
 
 # Tool Usage
 - Use quickpay MCP only for reading files/directories outside current working directory
