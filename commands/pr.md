@@ -2,6 +2,17 @@
 
 Create a comprehensive GitHub pull request with detailed description based on git history.
 
+## Pre-run Commands
+
+- Base branch detection: !`git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null || echo "none"`
+- Repository status: !`git status`
+- Existing PR check: !`gh pr view --json url,title 2>/dev/null || echo "none"`
+- Current branch: !`git branch --show-current`
+- Commit history since main: !`git log --oneline main..HEAD 2>/dev/null || echo "main branch not found"`
+- Commit history since master: !`git log --oneline master..HEAD 2>/dev/null || echo "master branch not found"`
+- Changes from main: !`git diff main...HEAD 2>/dev/null || echo "main branch not found"`
+- Changes from master: !`git diff master...HEAD 2>/dev/null || echo "master branch not found"`
+
 ## Instructions
 
 1. **Analyze the current branch's commits** since it diverged from the base branch
@@ -16,13 +27,18 @@ Create a comprehensive GitHub pull request with detailed description based on gi
 - **Notes**: Any deployment considerations, breaking changes, or reviewer guidance
 
 ### Process:
-1. Determine base branch (main or master) using `git symbolic-ref refs/remotes/origin/HEAD` or check which exists
-2. Run `git log --oneline <base-branch>..HEAD` to see commits
-3. Run `git diff <base-branch>...HEAD` to understand all changes
-4. Analyze the code changes to understand the technical implementation
-5. Create PR using `gh pr create` with comprehensive title and body, making `ianmurrays` the assignee
-6. Include specific testing instructions for reviewers
-7. Mention any configuration changes, database migrations, or deployment notes
+1. Check if existing PR exists for current branch using pre-run `gh pr view` output
+2. If `--update` flag is provided:
+   - If PR exists: Update existing PR description using `gh pr edit --body`
+   - If no PR exists: Show error message asking user to create PR first or remove --update flag
+3. If no `--update` flag (normal PR creation):
+   - Determine base branch from pre-run commands (check if main or master exists)
+   - Use the appropriate commit history and diff from pre-run commands
+   - Analyze commits and changes to understand what was implemented
+   - Create PR using `gh pr create` with comprehensive title and body, making `ianmurrays` the assignee
+   - If PR already exists, show warning but proceed (GitHub will handle the conflict)
+4. Include specific testing instructions for reviewers  
+5. Mention any configuration changes, database migrations, or deployment notes
 The pull request should give reviewers complete context to understand the change's purpose, implementation, and how to verify it works correctly.
 
 ## Supported Flags
@@ -33,6 +49,7 @@ Parse the following flags from `$ARGUMENTS`:
 - `--no-assign`: Skip self-assignment
 - `--base <branch>`: Override base branch detection
 - `--title <title>`: Override auto-generated title
+- `--update` or `-u`: Update existing PR description instead of creating new PR
 
 ### Flag Implementation
 
@@ -41,6 +58,7 @@ When processing arguments:
 2. Check for `--no-assign` flag - skip the assignee parameter
 3. Check for `--base <branch>` - use specified branch instead of auto-detection
 4. Check for `--title <title>` - use provided title instead of generating from commits
+5. Check for `--update` or `-u` flag - update existing PR instead of creating new one
 
 ### Extra Instructions for PR Generation
 
@@ -64,6 +82,8 @@ When extra instructions are provided:
 - `/pr --draft` - Creates draft PR
 - `/pr --base develop --draft` - Creates draft PR against develop branch
 - `/pr --title "Fix critical bug" --no-assign` - Custom title without self-assignment
+- `/pr --update` - Updates existing PR description with latest changes
+- `/pr -u --title "Updated: Fix critical bug"` - Updates existing PR with new title
 - `/pr include a mermaid diagram of the data flow` - PR with data flow diagram
 - `/pr --draft add performance comparison table and migration guide` - Draft PR with specific content
-- `/pr show API usage examples with curl commands` - PR with API examples
+- `/pr --update show revised API usage examples` - Updates existing PR with new examples
