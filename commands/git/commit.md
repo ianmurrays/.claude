@@ -4,6 +4,13 @@ description: Commit changes in the working directory with meaningful messages th
 
 # Git Commit Command
 
+## Pre-run Commands
+
+- Working tree status: !`git status`
+- Unstaged changes: !`git diff`
+- Staged changes: !`git diff --staged`
+- Recent commit history: !`git log --oneline -5`
+
 **IMPORTANT**: Use the `execute_command` tool directly for all git operations. Do NOT use any MCP servers or tools.
 
 You are tasked with committing changes in the working directory with meaningful commit messages that explain both **what** was changed and **why**.
