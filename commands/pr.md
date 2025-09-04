@@ -15,6 +15,8 @@ Create a comprehensive GitHub pull request with detailed description based on gi
 
 ## Instructions
 
+**IMPORTANT**: Use the Task tool to run this command as a subtask for better organization and tracking. The subtask should handle all the PR creation logic.
+
 1. **Analyze the current branch's commits** since it diverged from the base branch
 2. **Extract the what, why, and how** from the commit history and code changes
 3. **Create a pull request** with a structured description that includes:
@@ -25,6 +27,12 @@ Create a comprehensive GitHub pull request with detailed description based on gi
 - **How**: Technical approach and implementation details
 - **Testing**: What should be tested and how
 - **Notes**: Any deployment considerations, breaking changes, or reviewer guidance
+
+### Language Guidelines:
+- Avoid subjective descriptors (robust, smart, elegant, powerful, efficient, clever, sophisticated, etc.)
+- Use factual descriptions instead
+- Never provide performance estimations or comparisons unless explicitly requested
+- Focus on objective what/why/how descriptions
 
 ### Process:
 1. Check if existing PR exists for current branch using pre-run `gh pr view` output

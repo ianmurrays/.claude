@@ -11,7 +11,7 @@ description: Commit changes in the working directory with meaningful messages th
 - Staged changes: !`git diff --staged`
 - Recent commit history: !`git log --oneline -5`
 
-**IMPORTANT**: Use the `execute_command` tool directly for all git operations. Do NOT use any MCP servers or tools.
+**IMPORTANT**: Use the Task tool to run this command as a subtask for better organization and tracking. The subtask should handle all the commit logic and use the `execute_command` tool directly for all git operations. Do NOT use any MCP servers or tools.
 
 You are tasked with committing changes in the working directory with meaningful commit messages that explain both **what** was changed and **why**.
 
@@ -45,6 +45,12 @@ You are tasked with committing changes in the working directory with meaningful 
 - Keep first line under 72 characters
 - Explain what AND why
 - Group related changes in single commits
+
+**Language Guidelines**:
+- Avoid subjective descriptors (robust, smart, elegant, powerful, efficient, clever, sophisticated, etc.)
+- Use factual descriptions instead
+- Never provide performance estimations or comparisons unless explicitly requested
+- Focus on objective what/why descriptions
 
 ## Examples
 
