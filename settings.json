@@ -20,11 +20,25 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "bunx ccusage statusline",
+    "command": "npx -y ccusage statusline",
     "padding": 0
   },
-  "feedbackSurveyState": {
-    "lastShownTime": 1754085517739
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title 'Claude Code' -message 'Claude needs your attention' -sound 'Default'"
+          }
+        ]
+      }
+    ]
   },
-  "model": "sonnet[1m]"
+  "enabledPlugins": {
+    "superpowers@superpowers-marketplace": true,
+    "sandbox@sandbox-ventures": true
+  },
+  "alwaysThinkingEnabled": true
 }
