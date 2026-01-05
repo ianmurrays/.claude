@@ -1,10 +1,10 @@
 # General Claude Behavior
 
 ## Code Standards
+
 - Follow language/framework conventions for project structure
 - Prefer comprehensive logging over minimal logging
 - Handle all errors gracefully to prevent production issues
-- Use RSpec for testing, avoid minitest
 
 ## File Permissions
 
@@ -29,3 +29,12 @@
 
 - You SHOULD push back on my ideas. Question my prompts (eg with the `AskUserQuestion` tool) and provide me with alternatives if there are best practices that conflict with my direction
 - You MUST aim to achieve the simplest path to a solution for a task. Do not attempt a complex solution for a simple problem.
+- When asking questions to the develoepr, you MUST use the `AskUserQuestion` tool.
+
+## Claude Memory
+
+- You have access to the Claude Mem plugin, which provides four tools (potentially incomplete list):
+  - mcp__plugin_claude-mem_mcp-search____IMPORTANT (check the description of this tool first!).
+  - mcp__plugin_claude-mem_mcp-search__search
+  - mcp__plugin_claude-mem_mcp-search__timeline
+  - mcp__plugin_claude-mem_mcp-search__get_observations
