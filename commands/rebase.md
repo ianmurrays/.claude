@@ -1,5 +1,12 @@
 ---
 description: Rebase current branch on main/master, fetching latest and resolving conflicts
+allowed-tools:
+  - Bash(git branch:*)
+  - Bash(git fetch:*)
+  - Bash(git rev-parse:*)
+  - Bash(git rebase:*)
+  - Bash(git diff:*)
+  - Bash(git add:*)
 ---
 
 # Rebase
