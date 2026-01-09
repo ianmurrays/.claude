@@ -66,20 +66,12 @@
   },
   "enabledPlugins": {
     "superpowers@superpowers-marketplace": true,
-    "prompt-improver@claude-code-marketplace": false,
-    "sandbox@sandbox-ventures": true,
-    "code-review@claude-code-plugins": false,
-    "commit-commands@claude-code-plugins": false,
-    "feature-dev@claude-code-plugins": false,
-    "frontend-design@claude-code-plugins": false,
-    "hookify@claude-code-plugins": false,
     "frontend-design@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
     "code-review@claude-plugins-official": true,
     "commit-commands@claude-plugins-official": true,
     "security-guidance@claude-plugins-official": true,
     "pr-review-toolkit@claude-plugins-official": true,
-    "claude-mem@thedotmack": false,
     "lua-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true
