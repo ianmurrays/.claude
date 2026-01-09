@@ -15,7 +15,48 @@
       "mcp__knowledge-graph-memory__create_relations",
       "mcp__knowledge-graph-memory__add_observations",
       "mcp__context7__resolve-library-id",
-      "mcp__context7__get-library-docs"
+      "mcp__context7__get-library-docs",
+      "Bash(rails test:*)",
+      "mcp__plugin_sandbox_context7__resolve-library-id",
+      "mcp__plugin_sandbox_context7__get-library-docs",
+      "Bash(find:*)",
+      "WebSearch",
+      "mcp__chrome-devtools__take_snapshot",
+      "mcp__chrome-devtools__take_screenshot",
+      "mcp__chrome-devtools__resize_page",
+      "mcp__plugin_claude-mem_mcp-search__search",
+      "mcp__plugin_claude-mem_mcp-search__get_observations",
+      "Bash(gh issue view:*)",
+      "Bash(bin/rails test:*)",
+      "mcp__chrome-devtools__list_pages",
+      "mcp__chrome-devtools__navigate_page",
+      "mcp__chrome-devtools__click",
+      "mcp__figma__get_design_context",
+      "mcp__figma__get_screenshot",
+      "Bash(cat:*)"
+    ],
+    "defaultMode": "default"
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title 'Claude Code' -message 'Waiting for your input' -sound default"
+          }
+        ]
+      },
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title 'Claude Code' -message 'Permission needed' -sound default"
+          }
+        ]
+      }
     ]
   },
   "statusLine": {
@@ -38,7 +79,7 @@
     "commit-commands@claude-plugins-official": true,
     "security-guidance@claude-plugins-official": true,
     "pr-review-toolkit@claude-plugins-official": true,
-    "claude-mem@thedotmack": true,
+    "claude-mem@thedotmack": false,
     "lua-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true

@@ -1,12 +1,6 @@
 ---
 description: Rebase current branch on main/master, fetching latest and resolving conflicts
-allowed-tools:
-  - Bash(git branch:*)
-  - Bash(git fetch:*)
-  - Bash(git rev-parse:*)
-  - Bash(git rebase:*)
-  - Bash(git diff:*)
-  - Bash(git add:*)
+allowed-tools: Bash(git branch:*), Bash(git fetch:*), Bash(git rev-parse:*), Bash(git rebase:*), Bash(git diff:*), Bash(git add:*), Bash(git range-diff:*)
 ---
 
 # Rebase
@@ -33,13 +27,21 @@ allowed-tools:
    git rev-parse --verify origin/main 2>/dev/null && echo "main" || echo "master"
    ```
 
+1. Record current HEAD for verification:
+
+   ```bash
+   git rev-parse HEAD
+   ```
+
+   Store this as `$OLD_HEAD` for post-rebase comparison.
+
 1. Start rebase:
 
    ```bash
    git rebase origin/<detected-main-branch>
    ```
 
-1. If rebase succeeds with no conflicts, report success and exit.
+1. If rebase succeeds with no conflicts, proceed to verification.
 
 1. If conflicts occur, loop until resolved:
 
@@ -74,4 +76,15 @@ allowed-tools:
 
    d. Repeat if more conflicts arise.
 
-1. Report completion with summary of any conflicts resolved.
+1. Verify rebase integrity:
+
+   ```bash
+   git range-diff origin/<main>..$OLD_HEAD origin/<main>..HEAD
+   ```
+
+   Interpret the output:
+   - Empty output or all commits show "=" prefix: changes preserved correctly
+   - Commits show "!" prefix: content changed (expected if conflicts were resolved)
+   - Commits show "<" without corresponding ">": commit was dropped (warn user)
+
+1. Report completion with verification summary and any conflicts resolved.
