@@ -37,6 +37,7 @@
     ],
     "defaultMode": "default"
   },
+  "model": "opus",
   "hooks": {
     "Notification": [
       {
@@ -65,14 +66,22 @@
     "padding": 0
   },
   "enabledPlugins": {
-    "superpowers@superpowers-marketplace": true,
-    "frontend-design@claude-plugins-official": true,
-    "feature-dev@claude-plugins-official": true,
+    "claude-mem@thedotmack": false,
+    "code-review@claude-code-plugins": false,
     "code-review@claude-plugins-official": true,
+    "commit-commands@claude-code-plugins": false,
     "commit-commands@claude-plugins-official": true,
-    "security-guidance@claude-plugins-official": true,
+    "feature-dev@claude-code-plugins": false,
+    "feature-dev@claude-plugins-official": true,
+    "frontend-design@claude-code-plugins": false,
+    "frontend-design@claude-plugins-official": true,
+    "hookify@claude-code-plugins": false,
+    "lua-lsp@claude-plugins-official": true,
     "pr-review-toolkit@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true
+    "prompt-improver@claude-code-marketplace": false,
+    "sandbox@sandbox-ventures": true,
+    "security-guidance@claude-plugins-official": true,
+    "superpowers@superpowers-marketplace": true
   },
   "alwaysThinkingEnabled": true
 }
