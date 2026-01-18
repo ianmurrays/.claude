@@ -4,8 +4,14 @@
 
 data=$(cat)
 
+# DEBUG
+echo "$data" > /tmp/status-debug.json
+
 # Get model name
 model=$(echo "$data" | jq -r '.model.display_name // .model.id // "unknown"')
+
+# Get output style
+output_style=$(echo "$data" | jq -r '.output_style.name // "default"')
 
 # Get context info
 max_ctx=$(echo "$data" | jq -r '.context_window.context_window_size // 200000')
@@ -50,5 +56,9 @@ else
   context_info="${bar} ${used_k}k/${max_k}k (${pct}% used)"
 fi
 
-# Output: Model | Context
-printf '%b\n' "${model} | ${context_info}"
+# Output: Model | [Output Style |] Context
+if [ "$output_style" != "default" ]; then
+  printf '%b\n' "${model} | ${output_style} | ${context_info}"
+else
+  printf '%b\n' "${model} | ${context_info}"
+fi
