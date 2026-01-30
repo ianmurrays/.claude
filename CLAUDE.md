@@ -6,6 +6,10 @@
 - Prefer comprehensive logging over minimal logging
 - Handle all errors gracefully to prevent production issues
 
+## Model
+
+- Unless the user explicitly tells you otherwise, any sub agents MUST run using Opus 4.5.
+
 ## File Permissions
 
 - You MUST NOT read or modify files with sensitive data (`.env`, secrets) without explicit permission
