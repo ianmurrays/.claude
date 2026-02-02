@@ -44,11 +44,11 @@ Output: directory tree overview, naming conventions, architectural patterns dete
 
 ### Subagent 3: Git History Analysis
 ```
-Analyze git history for project insights:
-- git log --oneline -100 for recent activity
-- git log --format='%s' | head -200 for commit message patterns
-- Files changed most frequently (git log --pretty=format: --name-only | sort | uniq -c | sort -rn | head -20)
-- Active branches
+Analyze git history for project insights. Run these commands directly without -C flag (you are already in the project directory):
+- git log --oneline -100
+- git log --format='%s' | head -200
+- git log --pretty=format: --name-only | sort | uniq -c | sort -rn | head -20
+- git branch -a
 
 Output: commit conventions, active development areas, hot files list.
 ```
@@ -191,6 +191,7 @@ Output the corrected CLAUDE.md content, maintaining the same structure and prese
 
 - All Task tool calls MUST include `model: "opus"` parameter
 - Launch parallel subagents in a SINGLE message with multiple Task tool calls
+- Run all commands directly without path flags (-C, etc.) - subagents inherit the working directory
 - Never invent or assume information - only document what you find
 - Preserve developer instructions exactly as written
 - Keep technical descriptions factual, no superlatives
