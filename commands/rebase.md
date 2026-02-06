@@ -1,9 +1,22 @@
 ---
 description: Rebase current branch on main/master, fetching latest and resolving conflicts
-allowed-tools: Bash(git branch:*), Bash(git fetch:*), Bash(git rev-parse:*), Bash(git rebase:*), Bash(git diff:*), Bash(git add:*), Bash(git range-diff:*)
+allowed-tools: Bash(git branch:*), Bash(git fetch:*), Bash(git rev-parse:*), Bash(git rebase:*), Bash(git diff:*), Bash(git add:*), Task
 ---
 
 # Rebase
+
+You are a lightweight orchestrator. Your job is to run simple git commands and delegate
+all heavy-context work (reading conflicting files, interpreting range-diff output) to
+isolated subagents via the `Task` tool. This keeps the main context window clean.
+
+**Critical rule:** Never read file contents or range-diff output directly. Always delegate.
+
+## Subagents
+
+This command uses two specialized agents defined in `~/.claude/agents/`:
+
+- **`conflict-resolver`** — reads a conflicting file, analyzes markers, resolves or reports back
+- **`rebase-verifier`** — runs `git range-diff` and returns an interpreted summary
 
 ## Steps
 
@@ -41,50 +54,54 @@ allowed-tools: Bash(git branch:*), Bash(git fetch:*), Bash(git rev-parse:*), Bas
    git rebase origin/<detected-main-branch>
    ```
 
-1. If rebase succeeds with no conflicts, proceed to verification.
+1. If rebase succeeds with no conflicts, proceed to verification (step 8).
 
-1. If conflicts occur, loop until resolved:
+1. If conflicts occur, resolve them using subagents:
 
-   a. List conflicting files:
+   a. List conflicting files (this is small output, orchestrator handles it):
 
       ```bash
       git diff --name-only --diff-filter=U
       ```
 
-   b. For each conflicting file:
-      - Read the file to see conflict markers
-      - Analyze both versions (between `<<<<<<<` and `=======` is current
-        branch, between `=======` and `>>>>>>>` is incoming from main)
-      - If the resolution is clear (one side only has whitespace changes,
-        or changes are in separate sections), resolve automatically
-      - If ambiguous (both sides made substantive changes to same code),
-        use `AskUserQuestion` to ask user which version to keep or how to
-        merge
-      - Edit the file to resolve conflicts (remove markers, apply chosen
-        resolution)
-      - Stage the resolved file:
+   b. **Spawn a `conflict-resolver` agent for each conflicting file.**
 
-        ```bash
-        git add <file>
-        ```
+      If there are multiple conflicting files, spawn them **in parallel** — since they
+      only edit their own file and don't touch the git index, parallel execution is safe.
 
-   c. Continue rebase:
+      Each agent's prompt should be just the absolute path to the conflicting file.
+      The agent already knows what to do (its instructions are in `~/.claude/agents/conflict-resolver.md`).
+
+   c. Process subagent results:
+      - If the response starts with "Resolved:": note the file for staging
+      - If the response starts with "AMBIGUOUS": use `AskUserQuestion` to present the
+        summary to the user and ask how to resolve. Then spawn a new `conflict-resolver`
+        agent with the file path AND the user's decision (e.g., "Resolve <path>: keep theirs
+        for conflict 1, keep ours for conflict 2")
+
+   d. **Stage all resolved files in one batch** (orchestrator does this):
+
+      ```bash
+      git add <file1> <file2> ...
+      ```
+
+   e. Continue rebase:
 
       ```bash
       git rebase --continue
       ```
 
-   d. Repeat if more conflicts arise.
+   f. If more conflicts arise, repeat from step 7a.
 
-1. Verify rebase integrity:
+1. Verify rebase integrity using the verification subagent:
 
-   ```bash
-   git range-diff origin/<main>..$OLD_HEAD origin/<main>..HEAD
+   **Spawn a `rebase-verifier` agent** with the following prompt:
+   ```
+   Main branch: <main|master>
+   OLD_HEAD: <old-head-sha>
+   New HEAD: <current-head-sha>
    ```
 
-   Interpret the output:
-   - Empty output or all commits show "=" prefix: changes preserved correctly
-   - Commits show "!" prefix: content changed (expected if conflicts were resolved)
-   - Commits show "<" without corresponding ">": commit was dropped (warn user)
+   The agent will run `git range-diff` and return a summary.
 
-1. Report completion with verification summary and any conflicts resolved.
+1. Report completion with the verification summary and list of conflicts resolved.
