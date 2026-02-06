@@ -11,6 +11,20 @@ isolated subagents via the `Task` tool. This keeps the main context window clean
 
 **Critical rule:** Never read file contents or range-diff output directly. Always delegate.
 
+## Context Protection
+
+Do **NOT** use `run_in_background: true` when spawning subagents. Without it, the `Task` tool
+returns only the subagent's final response — which is concise by design. With `run_in_background`,
+you must use `TaskOutput` or read output files to get results, and these return the **full subagent
+conversation transcript** (every Read result, Edit param, hook event), polluting the orchestrator
+context. In a multi-commit rebase this can exceed 600K characters and trigger "Prompt is too long"
+errors.
+
+**Rules:**
+- **Never** set `run_in_background: true` on `Task` calls
+- **Never** use `TaskOutput` or read subagent output files
+- The synchronous `Task` return value is all you need — it contains the agent's concise result
+
 ## Subagents
 
 This command uses two specialized agents defined in `~/.claude/agents/`:
