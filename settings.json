@@ -1,5 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "CLAUDE_CODE_EFFORT_LEVEL": "max"
+  },
   "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
@@ -35,9 +39,8 @@
       "mcp__figma__get_screenshot",
       "Bash(cat:*)"
     ],
-    "defaultMode": "default"
+    "defaultMode": "auto"
   },
-  "model": "opus",
   "hooks": {
     "Notification": [
       {
@@ -62,26 +65,21 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "~/.claude/scripts/status-line.sh",
-    "padding": 0
+    "command": "bunx -y ccstatusline@latest",
+    "padding": 0,
+    "refreshInterval": 10
   },
   "enabledPlugins": {
-    "claude-mem@thedotmack": false,
-    "code-review@claude-code-plugins": false,
     "code-review@claude-plugins-official": true,
-    "commit-commands@claude-code-plugins": false,
     "commit-commands@claude-plugins-official": true,
-    "feature-dev@claude-code-plugins": false,
     "feature-dev@claude-plugins-official": true,
-    "frontend-design@claude-code-plugins": false,
     "frontend-design@claude-plugins-official": true,
-    "hookify@claude-code-plugins": false,
     "lua-lsp@claude-plugins-official": true,
     "pr-review-toolkit@claude-plugins-official": true,
-    "prompt-improver@claude-code-marketplace": false,
+    "ruby-lsp@claude-plugins-official": true,
     "sandbox@sandbox-ventures": true,
     "security-guidance@claude-plugins-official": true,
-    "superpowers@superpowers-marketplace": true,
+    "superpowers@claude-plugins-official": true,
     "plannotator@plannotator": true
   },
   "extraKnownMarketplaces": {
@@ -92,5 +90,11 @@
       }
     }
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "tui": "fullscreen",
+  "autoCompactEnabled": false,
+  "teammateMode": "auto",
+  "remoteControlAtStartup": false,
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true
 }
